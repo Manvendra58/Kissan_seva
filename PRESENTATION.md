@@ -4,8 +4,9 @@ Use this before showing the project to others.
 
 ## A. Must do (or login/data will fail)
 
-- [ ] Open Supabase project `quyizppqbqbknrirnlkj` (or your own project)
-- [ ] Copy **anon public** key → paste into local `.env` as `VITE_SUPABASE_PUBLISHABLE_KEY`
+- [ ] Open Supabase project `dgtrcnxudqrnriuxtsrs`
+- [ ] Copy **publishable / anon** key → paste into local `.env` as `VITE_SUPABASE_PUBLISHABLE_KEY`
+- [ ] Run `SETUP_DATABASE.sql` on this project (new projects have no tables yet)
 - [ ] Same key → Vercel Environment Variables for production
 - [ ] Restart `npm run dev` after saving `.env`
 

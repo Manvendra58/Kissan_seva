@@ -21,12 +21,13 @@ cp .env.example .env
 Edit `.env` and set your **anon/public** key:
 
 ```env
-VITE_SUPABASE_URL=https://quyizppqbqbknrirnlkj.supabase.co
-VITE_SUPABASE_PUBLISHABLE_KEY=eyJhbGciOi...your_real_key...
+VITE_SUPABASE_PROJECT_ID=dgtrcnxudqrnriuxtsrs
+VITE_SUPABASE_URL=https://dgtrcnxudqrnriuxtsrs.supabase.co
+VITE_SUPABASE_PUBLISHABLE_KEY=sb_publishable_...your_publishable_key...
 ```
 
-Get the key from: **Supabase Dashboard → Project Settings → API → anon public**  
-(or Lovable → Code → `.env`)
+Get keys from: **Supabase Dashboard → Project Settings → API**  
+Use the **publishable / anon** key in Vite. Never put the **secret** key in frontend `.env` or GitHub.
 
 ```sh
 npm run dev

@@ -2,7 +2,7 @@ import { createClient } from '@supabase/supabase-js';
 import type { Database } from './types';
 
 const PROJECT_ID =
-  import.meta.env.VITE_SUPABASE_PROJECT_ID || 'quyizppqbqbknrirnlkj';
+  import.meta.env.VITE_SUPABASE_PROJECT_ID || 'dgtrcnxudqrnriuxtsrs';
 
 const SUPABASE_URL =
   import.meta.env.VITE_SUPABASE_URL || `https://${PROJECT_ID}.supabase.co`;
