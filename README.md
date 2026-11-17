@@ -23,7 +23,7 @@ Edit `.env` and set your **anon/public** key:
 ```env
 VITE_SUPABASE_PROJECT_ID=dgtrcnxudqrnriuxtsrs
 VITE_SUPABASE_URL=https://dgtrcnxudqrnriuxtsrs.supabase.co
-VITE_SUPABASE_PUBLISHABLE_KEY=sb_publishable_...your_publishable_key...
+...
 ```
 
 Get keys from: **Supabase Dashboard → Project Settings → API**  
