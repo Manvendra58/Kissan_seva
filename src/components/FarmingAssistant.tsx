@@ -3,9 +3,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { supabase } from '@/integrations/supabase/client';
+import { adviseFarmer } from '@/lib/farmingAdvisor';
 import { Bot, Send, X, Loader2, Leaf, Minimize2, Maximize2 } from 'lucide-react';
-import { useToast } from '@/hooks/use-toast';
 import ReactMarkdown from 'react-markdown';
 
 interface Message {
@@ -20,7 +19,6 @@ export const FarmingAssistant = () => {
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
-  const { toast } = useToast();
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -28,44 +26,18 @@ export const FarmingAssistant = () => {
     }
   }, [messages]);
 
-  const sendMessage = async () => {
-    if (!input.trim() || isLoading) return;
+  const sendMessage = async (preset?: string) => {
+    const userMessage = (preset ?? input).trim();
+    if (!userMessage || isLoading) return;
 
-    const userMessage = input.trim();
     setInput('');
-    setMessages(prev => [...prev, { role: 'user', content: userMessage }]);
+    setMessages((prev) => [...prev, { role: 'user', content: userMessage }]);
     setIsLoading(true);
 
-    try {
-      const { data, error } = await supabase.functions.invoke('farming-assistant', {
-        body: { 
-          message: userMessage,
-          history: messages.slice(-10) // Send last 10 messages for context
-        }
-      });
-
-      if (error) throw error;
-
-      if (data.error) {
-        toast({
-          title: "Error",
-          description: data.error,
-          variant: "destructive",
-        });
-        return;
-      }
-
-      setMessages(prev => [...prev, { role: 'assistant', content: data.reply }]);
-    } catch (error) {
-      console.error('Error:', error);
-      toast({
-        title: "Error",
-        description: "Failed to get response. Please try again.",
-        variant: "destructive",
-      });
-    } finally {
-      setIsLoading(false);
-    }
+    // Local guidance so the demo works without LOVABLE_API_KEY.
+    await new Promise((resolve) => setTimeout(resolve, 350));
+    setMessages((prev) => [...prev, { role: 'assistant', content: adviseFarmer(userMessage) }]);
+    setIsLoading(false);
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -96,7 +68,7 @@ export const FarmingAssistant = () => {
           <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
             <Leaf className="h-4 w-4" />
           </div>
-          <CardTitle className="text-sm font-semibold">KrishiMitra AI</CardTitle>
+          <CardTitle className="text-sm font-semibold">KrishiMitra</CardTitle>
         </div>
         <div className="flex items-center gap-1">
           <Button
@@ -134,7 +106,7 @@ export const FarmingAssistant = () => {
                   ].map((q, i) => (
                     <button
                       key={i}
-                      onClick={() => setInput(q)}
+                      onClick={() => sendMessage(q)}
                       className="block w-full text-xs px-3 py-2 rounded-lg bg-secondary hover:bg-secondary/80 text-left transition-colors"
                     >
                       {q}

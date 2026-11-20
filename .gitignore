@@ -33,3 +33,6 @@ dist-ssr
 
 # Lockfile noise (optional keep package-lock)
 bun.lockb
+
+# Supabase CLI local cache
+supabase/.temp/

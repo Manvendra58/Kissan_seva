@@ -76,22 +76,38 @@ const Auth = () => {
     setIsLoading(false);
 
     if (error) {
+      const msg = error.message || '';
+      let description = msg;
+      if (msg === 'Invalid login credentials') {
+        description =
+          'Invalid email or password. Register first if you have no account yet.';
+      } else if (/email not confirmed/i.test(msg)) {
+        description =
+          'Confirm your email in the inbox, or in Supabase turn off “Confirm email” under Authentication → Providers → Email.';
+      }
       toast({
         title: 'Login Failed',
-        description:
-          error.message === 'Invalid login credentials'
-            ? 'Invalid email or password. Please try again.'
-            : error.message,
+        description,
         variant: 'destructive',
       });
       return;
     }
 
+    if (!isAdmin) {
+      toast({
+        title: 'Logged in as farmer',
+        description:
+          'To open Admin, run MAKE_ADMIN.sql in Supabase for this email, then log in again.',
+      });
+      navigate('/dashboard');
+      return;
+    }
+
     toast({
-      title: 'Welcome Back!',
-      description: isAdmin ? 'Opening the admin panel.' : 'You have successfully logged in.',
+      title: 'Welcome Admin!',
+      description: 'Opening the admin panel.',
     });
-    navigate(isAdmin ? '/admin' : '/dashboard');
+    navigate('/admin');
   };
 
   const handleForgotPassword = async () => {

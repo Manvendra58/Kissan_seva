@@ -40,12 +40,17 @@ export const useAuth = () => {
 };
 
 async function fetchIsAdmin(userId: string): Promise<boolean> {
-  const { data: roleData } = await supabase
+  const { data: roleData, error } = await supabase
     .from('user_roles')
     .select('role')
     .eq('user_id', userId)
     .eq('role', 'admin')
     .maybeSingle();
+
+  if (error) {
+    console.error('Failed to read admin role:', error.message);
+    return false;
+  }
 
   return !!roleData;
 }
