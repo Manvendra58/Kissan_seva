@@ -117,7 +117,7 @@ const Index = () => {
       {/* Footer */}
       <footer className="py-12 border-t-2 border-primary/20 bg-gradient-to-r from-primary/10 via-emerald-500/5 to-primary/10">
         <div className="container mx-auto px-4 text-center">
-          <p className="text-foreground/80 font-medium">© 2025 Kisan Seva — Integrated Agriculture Portal</p>
+          <p className="text-foreground/80 font-medium">© 2026 Kisan Seva — Integrated Agriculture Portal</p>
           <p className="text-sm text-muted-foreground mt-1">🌾 Grow • Plant • Harvest</p>
           
           <p className="text-sm text-muted-foreground mt-1">🌾 design by : Rudra abrol and Team</p>
